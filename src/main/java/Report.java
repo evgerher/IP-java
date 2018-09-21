@@ -12,27 +12,38 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Class report
+ * Stores a map of words <Word, Amount of occurences>
+ */
 public class Report {
   private static final Logger logger = LoggerFactory.getLogger(Report.class);
+  private final static Pattern numberPattern = Pattern.compile("[0-9]"); // Numbers detector
 
   private final TreeMap<String, Integer> wordsCount;
-  private final static Pattern numberPattern;
-  static {
-    numberPattern = Pattern.compile("[0-9]");
-  }
 
   Report() {
     wordsCount = new TreeMap<>();
   }
 
+  /**
+   * Method for processing list of files
+   * @param files
+   * @throws ReportException if any
+   */
   public void processFiles(List<File> files) throws ReportException {
     for (File f: files)
       processFile(f);
   }
 
+  /**
+   * Method reads content of the file word by word and updates `wordsCount` object
+   * @param file
+   * @throws ReportException
+   */
   public void processFile(File file) throws ReportException {
     logger.info("Started processing file [{}]", file.getName());
-    try (ResourceUtil util = ResourceFactory.createResourceUtil(file)) {
+    try (ResourceUtil util = ResourceUtilFactory.createResourceUtil(file)) {
       processResource(util);
     } catch (IOException e) {
       logger.error("Error during processing file [{}]", file.getName());
@@ -43,7 +54,7 @@ public class Report {
 
   public void processURL(URL url) throws ReportException {
     logger.info("Started processing url [{}]", url.toString());
-    try (ResourceUtil util = ResourceFactory.createResourceUtil(url)) {
+    try (ResourceUtil util = ResourceUtilFactory.createResourceUtil(url)) {
       processResource(util);
     } catch (IOException e) {
       logger.error("Error during processing url [{}]", url.toString());
@@ -52,6 +63,11 @@ public class Report {
     logger.info("Ended processing url [{}]", url.toString());
   }
 
+  /**
+   * Common method for both ResourceUtil types
+   * @param util - ResourceUtil object
+   * @throws IOException
+   */
   private void processResource(ResourceUtil util) throws IOException {
     while (util.hasContent()) {
       String scannedWord = util.readWord();
@@ -61,6 +77,10 @@ public class Report {
     }
   }
 
+  /**
+   * Method receives whole file's content as a String and processes it
+   * @param content
+   */
   public void processFileAsString(String content) {
     content = cleanPunctuations(content);
 
@@ -79,13 +99,19 @@ public class Report {
     }
   }
 
+  /**
+   * Method process one word
+   * Checks is it empty string or contains number
+   * @param word
+   */
   private void processWord(String word) {
     if (word.equals(""))
       return;
     if (containsDigit(word))
       return;
-    //todo: fix there can be 2 subwords
     word = word.trim();
+
+    // Update table
     if (wordsCount.containsKey(word)) {
       int amount = wordsCount.get(word);
       wordsCount.put(word, amount + 1);
@@ -93,7 +119,11 @@ public class Report {
       wordsCount.put(word, 1);
   }
 
-
+  /**
+   * Method gets rid of punctuation marks
+   * @param content
+   * @return
+   */
   private String cleanPunctuations(String content) {
     content = content.replaceAll("\\.", "");
     content = content.replaceAll("\\?", "");
@@ -113,11 +143,20 @@ public class Report {
     return content;
   }
 
+  /**
+   * Method checks does word contan a number
+   * @param word
+   * @return is number in a word or not
+   */
   private boolean containsDigit(String word) {
     Matcher matcher = numberPattern.matcher(word);
     return matcher.find();
   }
 
+  /**
+   * Method returns table as set of entries
+   * @return
+   */
   //TODO: what is better here? Entry or own implementation of Pair?
   public Set<Entry<String, Integer>> getResults() {
     return wordsCount.entrySet();

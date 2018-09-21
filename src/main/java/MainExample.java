@@ -16,16 +16,19 @@ public class MainExample {
   }
 
   public static void main(String[] args) throws URISyntaxException {
-    // fileExample();
-    // urlExample();
+//    fileExample();
+//    urlExample();
 
     /* Expected to be files */
-//    if (args.length < 2)
-//      System.err.println("Incorrect amount of parameters");
-//    List<File> files = new LinkedList<>();
-
+    if (args.length < 2)
+      System.err.println("Incorrect amount of parameters");
+    List<File> files = new LinkedList<>();
   }
 
+  /**
+   * Code example for files
+   * @throws URISyntaxException
+   */
   private static void fileExample() throws URISyntaxException {
     List<File> files = new LinkedList<>();
     files.add(new File("C:/AiOLog.txt"));
@@ -40,6 +43,9 @@ public class MainExample {
     System.out.println(report.toString());
   }
 
+  /**
+   * Code example for url
+   */
   private static void urlExample() {
     Report r2 = new Report();
     try {
