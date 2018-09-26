@@ -19,7 +19,10 @@ public class ResourceUtilTest {
   public void fileTest() throws URISyntaxException, IOException {
     File input = getResourcePath("letter.txt").toFile();
     ResourceUtil util = new FileResourceUtil(input);
-    String content = util.readContent();
+    String content;
+    try (ResourceUtil.Resource res = util.getResource()) {
+      content = res.readContent();
+    }
 
     String expected = "Dear Evgeny!\n"
         + "\n"

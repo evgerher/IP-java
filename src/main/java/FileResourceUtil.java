@@ -9,6 +9,6 @@ import java.io.UnsupportedEncodingException;
 public class FileResourceUtil extends ResourceUtil {
 
   public FileResourceUtil(File src) throws FileNotFoundException, UnsupportedEncodingException {
-    super(new FileInputStream(src));
+    super(src.getName(), new FileInputStream(src));
   }
 }
