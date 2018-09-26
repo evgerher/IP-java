@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 import java.util.List;
@@ -26,55 +27,20 @@ public class Report {
     wordsCount = new TreeMap<>();
   }
 
-  /**
-   * Method for processing list of files
-   * @param files
-   * @throws ReportException if any
-   */
-  public void processFiles(List<File> files) throws ReportException {
-    for (File f: files)
-      processFile(f);
-  }
-
-  /**
-   * Method reads content of the file word by word and updates `wordsCount` object
-   * @param file
-   * @throws ReportException
-   */
-  public void processFile(File file) throws ReportException {
-    logger.info("Started processing file [{}]", file.getName());
-    try (ResourceUtil util = ResourceUtilFactory.createResourceUtil(file)) {
-      processResource(util);
+  public void processResourceUtil(ResourceUtil util) throws ReportException {
+    logger.info("Started processing resource [{}]", util);
+    try (ResourceUtil.Resource resource =  util.getResource()) {
+      while (resource.hasContent()) {
+        String scannedWord = resource.readWord();
+        scannedWord = cleanPunctuations(scannedWord);
+        for (String word: scannedWord.split(" "))
+          processWord(word);
+      }
     } catch (IOException e) {
-      logger.error("Error during processing file [{}]", file.getName());
+      logger.error("Error during processing resource [{}]", util);
       throw new ReportException(e);
     }
-    logger.info("Ended processing file [{}]", file.getName());
-  }
-
-  public void processURL(URL url) throws ReportException {
-    logger.info("Started processing url [{}]", url.toString());
-    try (ResourceUtil util = ResourceUtilFactory.createResourceUtil(url)) {
-      processResource(util);
-    } catch (IOException e) {
-      logger.error("Error during processing url [{}]", url.toString());
-      throw new ReportException(e);
-    }
-    logger.info("Ended processing url [{}]", url.toString());
-  }
-
-  /**
-   * Common method for both ResourceUtil types
-   * @param util - ResourceUtil object
-   * @throws IOException
-   */
-  private void processResource(ResourceUtil util) throws IOException {
-    while (util.hasContent()) {
-      String scannedWord = util.readWord();
-      scannedWord = cleanPunctuations(scannedWord);
-      for (String word: scannedWord.split(" "))
-        processWord(word);
-    }
+    logger.info("Ended processing resource [{}]", util);
   }
 
   /**

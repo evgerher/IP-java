@@ -7,73 +7,92 @@ import java.io.UnsupportedEncodingException;
  * Class allows to operate on text files
  * Read entire file or word by word (space separated)
  */
-public abstract class ResourceUtil implements AutoCloseable {
+public abstract class ResourceUtil {
   // End of file on Win?
-  private final char EOF_SIGNAL = '\uFFFF';
+  private final String charSet = "UTF-8";
+  private final int EOF_SIGNAL = -1;
   private final char SPACE = ' ';
-  private final InputStreamReader stream;
+  private final InputStream is;
+  private final String description;
 
   // End Of File flag
   private boolean EOF = false;
 
-  /**
-   * Constructor for class ResourceUtil
-   * Creates initial InputStreamReader with UTF-8 in order to operate with cyrillic symbols
-   * @param is
-   * @throws UnsupportedEncodingException if any
-   */
-  public ResourceUtil(InputStream is) throws UnsupportedEncodingException {
-    stream = new InputStreamReader(is, "UTF-8");
+  public String toString() {
+    return this.description;
   }
 
-  /**
-   * Method reads entire file
-   * @return content of the file
-   * @throws IOException if any
-   */
-  public String readContent() throws IOException {
-    StringBuilder builder = new StringBuilder();
-    char ch;
-    while ((ch = (char) stream.read()) != EOF_SIGNAL) {
-      builder.append(ch);
+  public ResourceUtil(String description, InputStream is) {
+    this.is = is;
+    this.description = description;
+  }
+
+  public Resource getResource() throws UnsupportedEncodingException {
+    return new Resource(is);
+  }
+
+  public class Resource implements AutoCloseable {
+    final InputStreamReader stream;
+
+    /**
+     * Constructor for class ResourceUtil
+     * Creates initial InputStreamReader with UTF-8 in order to operate with cyrillic symbols
+     * @param is
+     * @throws UnsupportedEncodingException if any
+     */
+    private Resource(InputStream is) throws UnsupportedEncodingException {
+      stream = new InputStreamReader(is, charSet);
     }
-    EOF = true;
 
-    return builder.toString();
-  }
-
-  /**
-   * Method read one word from a file, stops on next SPACE symbol or EOF
-   * @return next word
-   * @throws IOException if any
-   */
-  public String readWord() throws IOException {
-    StringBuilder b = new StringBuilder();
-    char ch;
-    while ((ch = (char) stream.read()) != SPACE) {
-      if (ch == EOF_SIGNAL) {
-        EOF = true;
-        break;
+    /**
+     * Method reads entire file
+     * @return content of the file
+     * @throws IOException if any
+     */
+    public String readContent() throws IOException {
+      StringBuilder builder = new StringBuilder();
+      int ch;
+      while ((ch = stream.read()) != EOF_SIGNAL) {
+        builder.append((char)ch);
       }
-      b.append(ch);
+      EOF = true;
+
+      return builder.toString();
     }
 
-    return b.toString();
-  }
+    /**
+     * Method read one word from a file, stops on next SPACE symbol or EOF
+     * @return next word
+     * @throws IOException if any
+     */
+    public String readWord() throws IOException {
+      StringBuilder b = new StringBuilder();
+      char ch;
+      while ((ch = (char) stream.read()) != SPACE) {
+        if (ch == EOF_SIGNAL) {
+          EOF = true;
+          break;
+        }
+        b.append(ch);
+      }
 
-  /**
-   *
-   * @return status of the stream
-   */
-  public boolean hasContent() {
-    return !EOF;
-  }
+      return b.toString();
+    }
 
-  /**
-   * Closes the stream
-   * @throws IOException
-   */
-  public void close() throws IOException {
-    stream.close();
+    /**
+     *
+     * @return status of the stream
+     */
+    public boolean hasContent() {
+      return !EOF;
+    }
+
+    /**
+     * Closes the stream
+     * @throws IOException
+     */
+    public void close() throws IOException {
+      stream.close();
+    }
   }
 }
