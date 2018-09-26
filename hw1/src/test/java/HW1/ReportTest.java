@@ -1,20 +1,25 @@
+package HW1;
+
 import static org.junit.Assert.assertEquals;
 
+import HW1.report.Report;
+import HW1.report.tasks.ReportTask;
+import HW1.report.tasks.WordCounterTask;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import org.junit.Test;
-import report.Report;
 
 public class ReportTest {
 
   @Test
-  public void wordsCountTest() {
+  public void wordsCountTest() throws Exception {
     String content = "Margaret prefers dogs dogs are hilarious";
 
-    Report r = new Report();
+    Report<WordCounterTask> r = new Report<>(new WordCounterTask());
     r.processFileAsString(content);
-    Set<Entry<String, Integer>> entries = r.getResults();
+    WordCounterTask task = r.getTask();
+    Set<Entry<String, Integer>> entries = task.getResults();
     TreeMap<String, Integer> expected = new TreeMap<String, Integer>() {{
       put("Margaret", 1);
       put("dogs", 2);
@@ -34,18 +39,18 @@ public class ReportTest {
   }
 
   @Test
-  public void toStringTest() {
+  public void toStringTest() throws Exception {
     final StringBuilder b = new StringBuilder();
     b.append("Johan Bruce Bruce ");
     b.append("C# C# C");
     final String content = b.toString();
 
 
-    Report r = new Report();
+    Report<WordCounterTask> r = new Report(new WordCounterTask());
     r.processFileAsString(content);
 
     StringBuilder expected = new StringBuilder();
-    expected.append(String.format("report.Report [%d]\n", r.hashCode()));
+    expected.append("WordCount task\n");
     /* The order may vary depending on internal data structure, need to reimplement */
     expected.append("Bruce : 2\n");
     expected.append("C : 1\n");

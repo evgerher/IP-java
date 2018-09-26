@@ -1,5 +1,6 @@
 package HW1;
 
+import HW1.report.tasks.WordCounterTask;
 import HW1.util.ResourceUtil;
 import HW1.util.ResourceUtilFactory;
 import java.io.File;
@@ -10,8 +11,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import report.Report;
-import report.ReportException;
+import HW1.report.*;
 
 public class MainExample {
   private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(MainExample.class);
@@ -34,7 +34,7 @@ public class MainExample {
    */
   private static void example() throws MalformedURLException, URISyntaxException {
     List<ResourceUtil> resources;
-    Report r = new Report();
+    Report<WordCounterTask> r = new Report(new WordCounterTask());
 
     URL url = new URL("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css");
     File a = new File("C:/AiOLog.txt");
@@ -46,6 +46,8 @@ public class MainExample {
         r.processResourceUtil(util);
     } catch (ReportException | IOException e) {
       logger.error("God damn it, even in the example it fails");
+    } catch (Exception f) { // TODO: UPDATE
+      logger.error("THINK HOW TO AVOID THIS TOP TYPE EXCEPTION");
     }
   }
 }

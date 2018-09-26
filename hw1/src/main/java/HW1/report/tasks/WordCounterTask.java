@@ -39,7 +39,7 @@ public class WordCounterTask implements ReportTask {
   @Override
   public String generateResult() {
     StringBuilder b = new StringBuilder();
-    b.append(String.format("WordCount task [%s]\n", toString()));
+    b.append("WordCount task\n");
     for (Map.Entry<String, Integer> entry: getResults()) {
       b.append(String.format("%s : %d\n", entry.getKey(), entry.getValue()));
     }

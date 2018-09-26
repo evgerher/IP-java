@@ -1,7 +1,7 @@
-package HW1;
+package HW1.report;
 
+import HW1.report.tasks.ReportTask;
 import HW1.util.ResourceUtil;
-import report.tasks.ReportTask;
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -11,11 +11,11 @@ import org.slf4j.LoggerFactory;
  * Class report
  * Stores a map of words <Word, Amount of occurences>
  */
-public class Report {
+public class Report<TaskType extends ReportTask> {
   private static final Logger logger = LoggerFactory.getLogger(Report.class);
-  private final ReportTask task;
+  private final TaskType task;
 
-  Report(ReportTask task) {
+  public Report(TaskType task) {
     this.task = task;
   }
 
@@ -74,5 +74,9 @@ public class Report {
     content = content.replaceAll("\n", " ");
     content = content.replaceAll("\t", " ");
     return content;
+  }
+
+  public TaskType getTask() {
+    return task;
   }
 }
