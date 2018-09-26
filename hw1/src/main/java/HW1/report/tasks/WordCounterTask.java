@@ -1,4 +1,4 @@
-package report.tasks;
+package HW1.report.tasks;
 
 import java.util.Map;
 import java.util.Map.Entry;

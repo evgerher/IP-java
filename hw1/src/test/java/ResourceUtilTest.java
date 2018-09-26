@@ -7,8 +7,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
-import util.FileResourceUtil;
-import util.ResourceUtil;
+import HW1.util.FileResourceUtil;
+import HW1.util.ResourceUtil;
 
 public class ResourceUtilTest {
 

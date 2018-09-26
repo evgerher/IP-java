@@ -1,7 +1,7 @@
-package report;
+package HW1;
 
+import HW1.util.ResourceUtil;
 import report.tasks.ReportTask;
-import util.ResourceUtil;
 import java.io.IOException;
 
 import org.slf4j.Logger;

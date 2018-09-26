@@ -1,4 +1,4 @@
-package report;
+package HW1;
 
 /**
  * report.Report exceptions wrapper

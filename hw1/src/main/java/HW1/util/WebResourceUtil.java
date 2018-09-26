@@ -1,4 +1,4 @@
-package util;
+package HW1.util;
 
 import java.io.IOException;
 import java.net.URL;

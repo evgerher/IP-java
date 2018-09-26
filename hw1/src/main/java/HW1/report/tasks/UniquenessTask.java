@@ -1,4 +1,4 @@
-package report.tasks;
+package HW1.report.tasks;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -20,7 +20,11 @@ public class UniquenessTask implements ReportTask {
 
   @Override
   public String generateResult() {
-    return null;
+    StringBuilder b = new StringBuilder();
+    for (String w: uniqueWords)
+      b.append(String.format("Word [%s]\n", w));
+    b.append(String.format("Total amount: %d\n", uniqueWords.size()));
+    return  b.toString();
   }
 
   public class UniquenessException extends Exception {

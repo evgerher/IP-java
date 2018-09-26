@@ -1,3 +1,7 @@
+package HW1;
+
+import HW1.util.ResourceUtil;
+import HW1.util.ResourceUtilFactory;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -8,8 +12,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import report.Report;
 import report.ReportException;
-import util.ResourceUtil;
-import util.ResourceUtilFactory;
 
 public class MainExample {
   private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(MainExample.class);
