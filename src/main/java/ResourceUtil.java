@@ -67,13 +67,13 @@ public abstract class ResourceUtil {
      */
     public String readWord() throws IOException {
       StringBuilder b = new StringBuilder();
-      char ch;
-      while ((ch = (char) stream.read()) != SPACE) {
+      int ch;
+      while ((ch = stream.read()) != SPACE) {
         if (ch == EOF_SIGNAL) {
           EOF = true;
           break;
         }
-        b.append(ch);
+        b.append((char) ch);
       }
 
       return b.toString();
