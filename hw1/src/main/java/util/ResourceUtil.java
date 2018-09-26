@@ -1,3 +1,5 @@
+package util;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +37,7 @@ public abstract class ResourceUtil {
     final InputStreamReader stream;
 
     /**
-     * Constructor for class ResourceUtil
+     * Constructor for class util.ResourceUtil
      * Creates initial InputStreamReader with UTF-8 in order to operate with cyrillic symbols
      * @param is
      * @throws UnsupportedEncodingException if any

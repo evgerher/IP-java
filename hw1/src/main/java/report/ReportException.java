@@ -1,5 +1,7 @@
+package report;
+
 /**
- * Report exceptions wrapper
+ * report.Report exceptions wrapper
  */
 public class ReportException extends Exception {
   public ReportException(String desc) {

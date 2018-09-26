@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import org.junit.Test;
+import report.Report;
 
 public class ReportTest {
 
@@ -44,7 +45,7 @@ public class ReportTest {
     r.processFileAsString(content);
 
     StringBuilder expected = new StringBuilder();
-    expected.append(String.format("Report [%d]\n", r.hashCode()));
+    expected.append(String.format("report.Report [%d]\n", r.hashCode()));
     /* The order may vary depending on internal data structure, need to reimplement */
     expected.append("Bruce : 2\n");
     expected.append("C : 1\n");
