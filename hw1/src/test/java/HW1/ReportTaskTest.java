@@ -3,10 +3,12 @@ package HW1;
 import static org.junit.Assert.assertEquals;
 
 import HW1.report.Report;
+import HW1.report.ReportException;
 import HW1.report.tasks.UniquenessTask;
 import HW1.report.tasks.WordCounterTask;
 import HW1.util.ResourceUtil;
 import HW1.util.ResourceUtilFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -84,9 +86,9 @@ public class ReportTaskTest {
     r.getTask().getResults();
   }
 
-  @Test(expected = UniquenessTask.UniquenessException.class)
-  public void uniqueExceptionTest() throws URISyntaxException, IOException {
-    final File f = getResourcePath("exception-case.txt").toFile();
+  @Test(expected = UniquenessTask.UniquenessRuntimeException.class)
+  public void uniqueExceptionTest() throws URISyntaxException, IOException, ReportException {
+    final File f = getResourcePath("unique-exception.txt").toFile();
     final ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
 
     Report<UniquenessTask> r = new Report<>(new UniquenessTask());

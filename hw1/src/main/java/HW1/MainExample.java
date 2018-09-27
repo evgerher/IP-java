@@ -23,7 +23,7 @@ public class MainExample {
   }
 
   public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-//    exampleCounter();
+    exampleCounter();
     exampleUnique();
   }
 
@@ -42,19 +42,22 @@ public class MainExample {
       resources = ResourceUtilFactory.createResourceUtils(a, b, url);
       for (ResourceUtil util: resources)
         r.processResourceUtil(util);
+      System.out.println(r.toString());
     } catch (ReportException | IOException e) {
       logger.error("God damn it, even in the example it fails");
-    } catch (Exception f) { // TODO: UPDATE
-      logger.error("THINK HOW TO AVOID THIS TOP TYPE EXCEPTION");
     }
   }
 
-  private static void exampleUnique() throws IOException, URISyntaxException {
+  private static void exampleUnique() throws URISyntaxException {
     File f = getResourcePath("unique.txt").toFile();
-    ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
-    Report<UniquenessTask> report = new Report<>(new UniquenessTask());
 
-    report.processResourceUtil(util);
-    System.out.println(report.toString());
+    try {
+      ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
+      Report<UniquenessTask> report = new Report<>(new UniquenessTask());
+      report.processResourceUtil(util);
+      System.out.println(report.toString());
+    } catch (IOException | ReportException e) {
+      logger.error("Report exception occured [{}]", e.getMessage());
+    }
   }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import HW1.util.ResourceUtil;
 import HW1.util.ResourceUtilFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
 import org.junit.Test;
 
 public class ResourceUtilFactoryTest {

@@ -1,7 +1,7 @@
 package HW1.report;
 
 /**
- * report.Report exceptions wrapper
+ * Report exceptions wrapper
  */
 public class ReportException extends Exception {
   public ReportException(String desc) {

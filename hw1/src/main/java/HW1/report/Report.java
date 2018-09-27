@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class report
- * Stores a map of words <Word, Amount of occurences>
+ * Contains a task that compeletes by processing words.
+ * Representation of the Report is done through toString() method
  */
 public class Report<TaskType extends ReportTask> {
   private static final Logger logger = LoggerFactory.getLogger(Report.class);
@@ -19,14 +20,18 @@ public class Report<TaskType extends ReportTask> {
     this.task = task;
   }
 
-  public void processResourceUtil(ResourceUtil util)  {
+  public void processResourceUtil(ResourceUtil util) throws ReportException {
     logger.info("Started processing resource [{}]", util);
     try (ResourceUtil.Resource resource =  util.getResource()) {
       while (resource.hasContent()) {
         String scannedWord = resource.readWord();
         scannedWord = cleanPunctuations(scannedWord);
-        for (String w: scannedWord.split(" "))
-          task.processWord(w); // todo: make magic, NOT EXCEPTION THROWING
+        for (String w: scannedWord.split(" ")) {
+          if (w.equals(""))
+            continue;
+          w = w.trim();
+          task.processWord(w);
+        }
       }
     } catch (IOException e) {
       logger.error("Error during processing resource [{}]", util);

@@ -22,11 +22,8 @@ public class WordCounterTask implements ReportTask {
    */
   @Override
   public void processWord(String word) {
-    if (word.equals(""))
-      return;
     if (containsDigit(word))
       return;
-    word = word.trim();
 
     // Update table
     if (wordsCount.containsKey(word)) {
