@@ -19,6 +19,13 @@ public class ResourceUtilFactory {
     return new WebResourceUtil(url);
   }
 
+  /**
+   * I have never tried methods with dynamic length :)
+   * @param resources - series of resources
+   * @return list of constructed ResourceUtil instances
+   * @throws FactoryException in case of incorrect type
+   * @throws IOException
+   */
   public static List<ResourceUtil> createResourceUtils(Object ... resources) throws FactoryException, IOException {
     List<ResourceUtil> utils = new LinkedList<>();
     File tf;

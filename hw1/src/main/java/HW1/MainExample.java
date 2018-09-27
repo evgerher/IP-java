@@ -1,5 +1,6 @@
 package HW1;
 
+import HW1.report.tasks.ReportTask;
 import HW1.report.tasks.UniquenessTask;
 import HW1.report.tasks.WordCounterTask;
 import HW1.util.ResourceUtil;
@@ -23,8 +24,25 @@ public class MainExample {
   }
 
   public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-    exampleCounter();
-    exampleUnique();
+//    exampleCounter();
+//    exampleUnique();
+    if (args.length < 2) {
+      logger.error("Incorrect amount of arguments");
+    }
+    String type = args[0];
+
+    ReportTask task;
+    if (type.equals("counter")) {
+      task = new WordCounterTask();
+    } else if (type.equals("unique")) {
+      task = new UniquenessTask();
+    } else {
+      logger.error("User provided wrong op-type [{}]", type);
+      throw new RuntimeException("Wrong operation type");
+    }
+
+    Report report = new Report(task);
+
   }
 
   /**

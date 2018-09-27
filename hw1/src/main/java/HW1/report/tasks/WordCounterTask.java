@@ -7,6 +7,9 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * WordCounter task calculates the amount of viewed words
+ */
 public class WordCounterTask implements ReportTask {
   private final TreeMap<String, Integer> wordsCount;
   private final static Pattern numberPattern = Pattern.compile("[0-9]"); // Numbers detector

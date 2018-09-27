@@ -5,6 +5,9 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * UniquenessTask checks that all the words in a resource(s) are unique
+ */
 public class UniquenessTask implements ReportTask {
   private static final Logger logger = LoggerFactory.getLogger(UniquenessTask.class);
 
@@ -15,6 +18,11 @@ public class UniquenessTask implements ReportTask {
   }
 
 
+  /**
+   * Add word to the set
+   * @param word
+   * @throws UniquenessRuntimeException if the word already exists
+   */
   @Override
   public void processWord(String word) throws UniquenessRuntimeException {
     if (uniqueWords.contains(word)) {
@@ -24,6 +32,10 @@ public class UniquenessTask implements ReportTask {
     uniqueWords.add(word);
   }
 
+  /**
+   *
+   * @return string representation of the results
+   */
   @Override
   public String generateResult() {
     StringBuilder b = new StringBuilder();
@@ -33,6 +45,10 @@ public class UniquenessTask implements ReportTask {
     return  b.toString();
   }
 
+  /**
+   *
+   * @return set representation of results
+   */
   public Set<String> getResults() {
     return uniqueWords;
   }

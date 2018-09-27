@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Class allows to operate on text files
  * Read entire file or word by word (space separated)
+ * Contains subclass Resource - closeable object, all the operations are still on the ResourceUtil class
  */
 public abstract class ResourceUtil {
   // End of file on Win?
