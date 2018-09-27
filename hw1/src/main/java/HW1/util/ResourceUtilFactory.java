@@ -24,6 +24,8 @@ public class ResourceUtilFactory {
     File tf;
     URL turl;
     for (Object b: resources) {
+      if (b == null)
+        throw new NullPointerException("Null object passed");
       if (b instanceof File) {
         tf = (File) b;
         utils.add(createResourceUtil(tf));

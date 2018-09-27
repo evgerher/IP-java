@@ -29,6 +29,10 @@ public abstract class ResourceUtil {
     this.description = description;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
   public Resource getResource() throws UnsupportedEncodingException {
     return new Resource(is);
   }
