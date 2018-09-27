@@ -1,5 +1,6 @@
 package HW1;
 
+import HW1.report.tasks.UniquenessTask;
 import HW1.report.tasks.WordCounterTask;
 import HW1.util.ResourceUtil;
 import HW1.util.ResourceUtilFactory;
@@ -22,17 +23,14 @@ public class MainExample {
   }
 
   public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-    example();
-//    /* Expected to be files */
-//    if (args.length < 2)
-//      System.err.println("Incorrect amount of parameters");
-//    List<File> files = new LinkedList<>();
+//    exampleCounter();
+    exampleUnique();
   }
 
   /**
-   * Code example for url
+   * Code example counting values
    */
-  private static void example() throws MalformedURLException, URISyntaxException {
+  private static void exampleCounter() throws MalformedURLException, URISyntaxException {
     List<ResourceUtil> resources;
     Report<WordCounterTask> r = new Report(new WordCounterTask());
 
@@ -49,5 +47,14 @@ public class MainExample {
     } catch (Exception f) { // TODO: UPDATE
       logger.error("THINK HOW TO AVOID THIS TOP TYPE EXCEPTION");
     }
+  }
+
+  private static void exampleUnique() throws IOException, URISyntaxException {
+    File f = getResourcePath("unique.txt").toFile();
+    ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
+    Report<UniquenessTask> report = new Report<>(new UniquenessTask());
+
+    report.processResourceUtil(util);
+    System.out.println(report.toString());
   }
 }

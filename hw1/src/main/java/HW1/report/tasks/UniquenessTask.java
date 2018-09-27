@@ -27,6 +27,10 @@ public class UniquenessTask implements ReportTask {
     return  b.toString();
   }
 
+  public Set<String> getResults() {
+    return uniqueWords;
+  }
+
   public class UniquenessException extends Exception {
     public UniquenessException(String reason) { super(reason); }
   }

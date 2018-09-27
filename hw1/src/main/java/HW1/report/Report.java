@@ -19,14 +19,14 @@ public class Report<TaskType extends ReportTask> {
     this.task = task;
   }
 
-  public void processResourceUtil(ResourceUtil util) throws Exception {
+  public void processResourceUtil(ResourceUtil util)  {
     logger.info("Started processing resource [{}]", util);
     try (ResourceUtil.Resource resource =  util.getResource()) {
       while (resource.hasContent()) {
         String scannedWord = resource.readWord();
         scannedWord = cleanPunctuations(scannedWord);
         for (String w: scannedWord.split(" "))
-          task.processWord(w);
+          task.processWord(w); // todo: make magic, NOT EXCEPTION THROWING
       }
     } catch (IOException e) {
       logger.error("Error during processing resource [{}]", util);
