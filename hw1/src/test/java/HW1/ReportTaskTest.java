@@ -78,7 +78,7 @@ public class ReportTaskTest {
   @Test
   public void uniqueTaskTest() throws Exception {
     final File f = getResourcePath("unique-2.txt").toFile();
-    ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
+    ResourceUtil util = ResourceUtilFactory.createResourceUtil(f.toURI());
 
     Report<UniquenessTask> r = new Report(new UniquenessTask());
     r.processResourceUtil(util);
@@ -89,7 +89,7 @@ public class ReportTaskTest {
   @Test(expected = UniquenessTask.UniquenessRuntimeException.class)
   public void uniqueExceptionTest() throws URISyntaxException, IOException, ReportException {
     final File f = getResourcePath("unique-exception.txt").toFile();
-    final ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
+    final ResourceUtil util = ResourceUtilFactory.createResourceUtil(f.toURI());
 
     Report<UniquenessTask> r = new Report<>(new UniquenessTask());
     r.processResourceUtil(util);

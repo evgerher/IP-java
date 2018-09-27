@@ -26,13 +26,13 @@ public class ResourceUtilFactoryTest {
     final File a = getResourcePath("letter.txt").toFile();
     final URL url = new URL("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css");
 
-    List<ResourceUtil> utils = ResourceUtilFactory.createResourceUtils(a, url);
+    List<ResourceUtil> utils = ResourceUtilFactory.createResourceUtils(a.toURI(), url.toURI());
     assertEquals(2, utils.size());
 
     ResourceUtil first = utils.get(0);
     ResourceUtil second = utils.get(1);
 
-    assertEquals("letter.txt", first.getDescription());
+    assertEquals("file:/C:/cygwin64/home/evger/JavaProjects/ip-java/hw1/target/test-classes/letter.txt", first.getDescription());
     assertEquals("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css", second.getDescription());
   }
 
@@ -41,16 +41,5 @@ public class ResourceUtilFactoryTest {
     final File a = getResourcePath("letter.txt").toFile();
     final Object b = new Object();
     List<ResourceUtil> utils = ResourceUtilFactory.createResourceUtils(a, b);
-  }
-
-  @Test
-  public void resourceCreationTest() throws URISyntaxException, IOException {
-    final File a = getResourcePath("letter.txt").toFile();
-    final URL b = new URL("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css");
-    ResourceUtil util1 = ResourceUtilFactory.createResourceUtil(a);
-    ResourceUtil util2 = ResourceUtilFactory.createResourceUtil(b);
-
-    assertEquals("letter.txt", util1.getDescription());
-    assertEquals("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css", util2.getDescription());
   }
 }

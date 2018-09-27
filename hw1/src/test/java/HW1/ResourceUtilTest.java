@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import HW1.util.FileResourceUtil;
 import HW1.util.ResourceUtil;
 
 public class ResourceUtilTest {
@@ -24,7 +23,7 @@ public class ResourceUtilTest {
   @Test
   public void fileTest() throws URISyntaxException, IOException {
     File input = getResourcePath("letter.txt").toFile();
-    ResourceUtil util = new FileResourceUtil(input);
+    ResourceUtil util = new ResourceUtil(input.toURI());
     String content;
     try (ResourceUtil.Resource res = util.getResource()) {
       content = res.readContent();

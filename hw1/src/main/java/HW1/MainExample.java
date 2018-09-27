@@ -8,6 +8,7 @@ import HW1.util.ResourceUtilFactory;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -24,8 +25,8 @@ public class MainExample {
   }
 
   public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-//    exampleCounter();
-//    exampleUnique();
+    exampleCounter();
+    exampleUnique();
     if (args.length < 2) {
       logger.error("Incorrect amount of arguments");
     }
@@ -42,11 +43,19 @@ public class MainExample {
     }
 
     Report report = new Report(task);
+    try {
+      URI uri = new URI("file:///C:/AiOLog.txt");
+      ResourceUtil util = new ResourceUtil(uri);
+      report.processResourceUtil(util);
+    } catch (IOException e) {
 
+    } catch (HW1.report.ReportException f) {
+
+    }
   }
 
   /**
-   * Code example counting values
+   * Code example WORD COUNTER task execution
    */
   private static void exampleCounter() throws MalformedURLException, URISyntaxException {
     List<ResourceUtil> resources;
@@ -57,7 +66,7 @@ public class MainExample {
     File b = getResourcePath("poem.txt").toFile();
 
     try {
-      resources = ResourceUtilFactory.createResourceUtils(a, b, url);
+      resources = ResourceUtilFactory.createResourceUtils(a.toURI(), b.toURI(), url.toURI());
       for (ResourceUtil util: resources)
         r.processResourceUtil(util);
       System.out.println(r.toString());
@@ -66,11 +75,15 @@ public class MainExample {
     }
   }
 
+  /**
+   * Example of UNIQUE task execution
+   * @throws URISyntaxException
+   */
   private static void exampleUnique() throws URISyntaxException {
     File f = getResourcePath("unique.txt").toFile();
 
     try {
-      ResourceUtil util = ResourceUtilFactory.createResourceUtil(f);
+      ResourceUtil util = ResourceUtilFactory.createResourceUtil(f.toURI());
       Report<UniquenessTask> report = new Report<>(new UniquenessTask());
       report.processResourceUtil(util);
       System.out.println(report.toString());

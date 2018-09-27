@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Class allows to operate on text files
  * Read entire file or word by word (space separated)
  * Contains subclass Resource - closeable object, all the operations are still on the ResourceUtil class
  */
-public abstract class ResourceUtil {
+public class ResourceUtil {
   // End of file on Win?
   private final String charSet = "UTF-8";
   private final int EOF_SIGNAL = -1;
@@ -25,9 +27,10 @@ public abstract class ResourceUtil {
     return this.description;
   }
 
-  public ResourceUtil(String description, InputStream is) {
-    this.is = is;
-    this.description = description;
+  public ResourceUtil(URI uri) throws IOException {
+    URL url = uri.toURL();
+    this.is = url.openStream();
+    this.description = url.toString();
   }
 
   public String getDescription() {
