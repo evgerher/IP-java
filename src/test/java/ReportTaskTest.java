@@ -1,13 +1,4 @@
-package HW1;
-
 import static org.junit.Assert.assertEquals;
-
-import HW1.report.Report;
-import HW1.report.ReportException;
-import HW1.report.tasks.UniquenessTask;
-import HW1.report.tasks.WordCounterTask;
-import HW1.util.ResourceUtil;
-import HW1.util.ResourceUtilFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +10,12 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import org.junit.Test;
+import report.Report;
+import report.ReportException;
+import report.tasks.UniquenessTask;
+import report.tasks.WordCounterTask;
+import util.ResourceUtil;
+import util.ResourceUtilFactory;
 
 public class ReportTaskTest {
   private Path getResourcePath(String resource) throws URISyntaxException {

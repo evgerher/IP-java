@@ -1,5 +1,3 @@
-package HW1;
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -10,8 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Test;
-
-import HW1.util.ResourceUtil;
+import util.ResourceUtil;
+import util.ResourceUtilFactory;
 
 public class ResourceUtilTest {
 
@@ -23,7 +21,7 @@ public class ResourceUtilTest {
   @Test
   public void fileTest() throws URISyntaxException, IOException {
     File input = getResourcePath("letter.txt").toFile();
-    ResourceUtil util = new ResourceUtil(input.toURI());
+    ResourceUtil util = ResourceUtilFactory.createResourceUtil(input.toURI());
     String content;
     try (ResourceUtil.Resource res = util.getResource()) {
       content = res.readContent();

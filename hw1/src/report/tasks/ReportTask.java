@@ -1,4 +1,4 @@
-package HW1.report.tasks;
+package report.tasks;
 
 /**
  * ReportTask interface

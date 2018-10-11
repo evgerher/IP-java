@@ -1,4 +1,4 @@
-package HW1.report;
+package report;
 
 /**
  * Report exceptions wrapper

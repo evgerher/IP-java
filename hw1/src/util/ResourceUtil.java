@@ -1,4 +1,4 @@
-package HW1.util;
+package util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +27,7 @@ public class ResourceUtil {
     return this.description;
   }
 
-  public ResourceUtil(URI uri) throws IOException {
+  protected ResourceUtil(URI uri) throws IOException {
     URL url = uri.toURL();
     this.is = url.openStream();
     this.description = url.toString();

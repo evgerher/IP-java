@@ -1,9 +1,7 @@
-package HW1.util;
+package util;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,8 +10,8 @@ import java.util.List;
  */
 public class ResourceUtilFactory {
   private ResourceUtilFactory() {}
-  public static ResourceUtil createResourceUtil(URI url) throws IOException {
-    return new ResourceUtil(url);
+  public static ResourceUtil createResourceUtil(URI uri) throws IOException {
+    return new ResourceUtil(uri);
   }
 
   /**

@@ -1,9 +1,10 @@
-package HW1.report.tasks;
+package report.tasks;
 
 import java.util.Set;
 import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import report.tasks.ReportTask;
 
 /**
  * UniquenessTask checks that all the words in a resource(s) are unique

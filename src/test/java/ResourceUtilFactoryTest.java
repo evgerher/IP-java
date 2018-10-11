@@ -1,9 +1,4 @@
-package HW1;
-
 import static org.junit.Assert.assertEquals;
-
-import HW1.util.ResourceUtil;
-import HW1.util.ResourceUtilFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,9 +6,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
+import java.util.List;
 import org.junit.Test;
+import util.ResourceUtil;
+import util.ResourceUtilFactory;
 
 public class ResourceUtilFactoryTest {
   private Path getResourcePath(String resource) throws URISyntaxException {
@@ -32,7 +29,8 @@ public class ResourceUtilFactoryTest {
     ResourceUtil first = utils.get(0);
     ResourceUtil second = utils.get(1);
 
-    assertEquals("file:/C:/cygwin64/home/evger/JavaProjects/ip-java/hw1/target/test-classes/letter.txt", first.getDescription());
+    // Better to remove it
+    assertEquals("file:/C:/cygwin64/home/evger/JavaProjects/ip-java/target/test-classes/letter.txt", first.getDescription());
     assertEquals("https://cfl.dropboxstatic.com/static/css/sprites/web_sprites-vflv2MHAO.css", second.getDescription());
   }
 

@@ -1,4 +1,4 @@
-package HW1.report.tasks;
+package report.tasks;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import report.tasks.ReportTask;
 
 /**
  * WordCounter task calculates the amount of viewed words
